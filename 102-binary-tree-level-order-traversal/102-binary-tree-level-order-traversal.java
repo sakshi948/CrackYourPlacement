@@ -21,16 +21,16 @@ class Solution {
         qu.offer(root);
         while(!qu.isEmpty())
         {
-            ArrayList<Integer> subList = new ArrayList<>();
+            ArrayList<Integer> sub = new ArrayList<>();
             int level = qu.size();
             for(int i=0;i<level;i++)
             {
                 if(qu.peek().left!=null){qu.offer(qu.peek().left);}
                 if(qu.peek().right!=null){qu.offer(qu.peek().right);}
-                subList.add(qu.poll().val);
+                sub.add(qu.poll().val);
             }
-            ans.add(subList);
+            ans.add(sub);
         }
         return ans;
-        }
     }
+}
