@@ -9,14 +9,25 @@ class Solution {
             return dp[ind][buy] = Math.max(fn(arr,ind+1,n,0,dp),fn(arr,ind+1,n,1,dp)+arr[ind]);
         }
     }
-    public int maxProfit(int[] prices) {
-        int n = prices.length;
-        int dp[][] = new int[n][2];
-        for(int i=0;i<n;i++){
-            for(int j=0;j<2;j++){
-                dp[i][j]=-1;
+    public int maxProfit(int[] arr) {
+        int n = arr.length;
+        int ahead[] = new int[2];
+        int cur[] = new int[2];
+        ahead[0] = 0;
+        ahead[1] = 0;
+        int profit = 0;
+        for(int ind=n-1;ind>=0;ind--){
+            for(int buy=0;buy<2;buy++){
+                if(buy==1){
+                profit = ahead[buy] = Math.max(ahead[0]-arr[ind],ahead[1]);
+                }
+                else{
+                profit = ahead[buy] = Math.max(ahead[0],ahead[1]+arr[ind]);
+                }
+                cur[buy] = profit;
             }
+            ahead = cur;
         }
-        return fn(prices,0,n,1,dp);
+        return ahead[1];
     }
 }
