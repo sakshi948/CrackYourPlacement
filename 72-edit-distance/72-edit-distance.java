@@ -10,15 +10,28 @@ class Solution {
             return dp[l1][l2] = 1 + Math.min(fn(s1,s2,l1-1,l2,dp),Math.min(fn(s1,s2,l1,l2-1,dp),fn(s1,s2,l1-1,l2-1,dp)));
         }
     }
-    public int minDistance(String word1, String word2) {
-        int l1 = word1.length();
-        int l2 = word2.length();
-        int dp[][] = new int[l1][l2];
-        for(int i=0;i<l1;i++){
-            for(int j=0;j<l2;j++){
-                dp[i][j]=-1;
+    public int minDistance(String s1, String s2) {
+        int l1 = s1.length();
+        int l2 = s2.length();
+        int dp[][] = new int[l1+1][l2+1];
+        for(int i=0;i<=l1;i++){
+            dp[i][0] = i;
+        }
+        for(int j=0;j<=l2;j++){
+            dp[0][j] = j;
+        }
+        
+        for(int ind1=1;ind1<=l1;ind1++){
+            for(int ind2=1;ind2<=l2;ind2++){
+                if(s1.charAt(ind1-1)==s2.charAt(ind2-1)){
+                    dp[ind1][ind2] = dp[ind1-1][ind2-1];
+                }
+                else{
+                    dp[ind1][ind2] = 1 + Math.min(dp[ind1-1][ind2],Math.min(dp[ind1][ind2-1],dp[ind1-1][ind2-1]));
+                }
             }
         }
-        return fn(word1,word2,l1-1,l2-1,dp);
+        return dp[l1][l2];
+        
     }
 }
