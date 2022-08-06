@@ -1,18 +1,23 @@
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        int check =0 ;
-        for(int i=0;i<gas.length;i++){
-            check+=gas[i]-cost[i];
-        }
-        if(check<0){return -1;}
-        int start=0,curr=0;
-        for(int i=0;i<gas.length;i++){
-            curr += gas[i]-cost[i];
-            if(curr<0){
-                start=i+1;
-                curr=0;
+        
+        int currentGaining = 0;
+        int totalGaining = 0;
+        int candidate = 0;
+        
+        for(int i= 0; i < gas.length; i++) {
+            
+            currentGaining += gas[i] - cost[i];
+            totalGaining += gas[i] - cost[i];
+            
+            if (currentGaining < 0) {
+                candidate = i+1;
+                currentGaining = 0;
             }
+            
         }
-        return start;
+        
+        return totalGaining >= 0 ? candidate : -1;
+        
     }
 }
