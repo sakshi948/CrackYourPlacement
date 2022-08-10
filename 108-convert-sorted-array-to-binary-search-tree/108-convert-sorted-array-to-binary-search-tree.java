@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-   public TreeNode sortedArrayToBST(int[] num) {
+    public TreeNode sortedArrayToBST(int[] num) {
     if (num.length == 0) {
         return null;
     }
