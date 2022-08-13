@@ -14,19 +14,15 @@
  * }
  */
 class Solution {
-    public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> list = new ArrayList<Integer>();
-        helper(root, list, 0);
-        return list;
+    public void fn(TreeNode root,int level,List<Integer> result ){
+        if(root==null){return;}
+        if(result.size()==level){result.add(root.val);}
+        fn(root.right,level+1,result);
+        fn(root.left,level+1,result);
     }
-    
-    private void helper(TreeNode node, List<Integer> list, int depth) {
-        if (node != null) {
-            if (depth == list.size())
-                list.add(node.val);
-            
-            helper(node.right, list, depth + 1);
-            helper(node.left, list, depth + 1);
-        }
+    public List<Integer> rightSideView(TreeNode root) {
+        ArrayList<Integer> result = new ArrayList<>();
+        fn(root,0,result);
+        return result;
     }
 }
