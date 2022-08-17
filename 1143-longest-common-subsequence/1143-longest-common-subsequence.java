@@ -1,26 +1,26 @@
 class Solution {
-    public int fn(String s1,String s2,int l1,int l2,int[][] dp)
-    {
-        if(l1<0||l2<0){
-            return 0;
-        }
-        int two = Integer.MIN_VALUE,one=0;
-        if(dp[l1][l2]!=-1){return dp[l1][l2];}
-        if(s1.charAt(l1)==s2.charAt(l2)){
-            one=1+ fn(s1,s2,l1-1,l2-1,dp);
+    public int fn(String s,String p,int ind1,int ind2,int dp[][]){
+        if(ind1<0||ind2<0){return 0;}
+        
+        int pick=0,notPick=0;
+        if(dp[ind1][ind2]!=-1){return dp[ind1][ind2];}
+        if(s.charAt(ind1)==p.charAt(ind2)){
+           pick =1+fn(s,p,ind1-1,ind2-1,dp);
         }
         else{
-            two = 0 + Math.max(fn(s1,s2,l1-1,l2,dp),fn(s1,s2,l1,l2-1,dp));
+            notPick =0+Math.max(fn(s,p,ind1-1,ind2,dp),fn(s,p,ind1,ind2-1,dp));
         }
-        return dp[l1][l2] = Math.max(one,two);
-        
+        return dp[ind1][ind2] = pick+notPick;
     }
-    public int longestCommonSubsequence(String text1, String text2) {
-        int l1=text1.length();
-        int l2=text2.length();
-        int dp[][] = new int[l1][l2];
-        for(int rows[]: dp)
-        Arrays.fill(rows,-1);
-        return fn(text1,text2,l1-1,l2-1,dp);
+    public int longestCommonSubsequence(String s, String p) {
+        int len1=s.length();
+        int len2=p.length();
+        int dp[][] = new int[len1][len2];
+        for(int i=0;i<len1;i++){
+            for(int j=0;j<len2;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return fn(s,p,len1-1,len2-1,dp);
     }
 }
