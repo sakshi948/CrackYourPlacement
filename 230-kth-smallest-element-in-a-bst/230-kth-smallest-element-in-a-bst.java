@@ -18,11 +18,11 @@ class Solution {
         Stack<TreeNode>st = new Stack<>();
         TreeNode curr=root;
         while(true){
-           if(curr!=null){
+           while(curr!=null){
                st.push(curr);
                curr=curr.left;
            }
-           else{
+           if(curr==null){
                if(st.isEmpty()){
                    break;
                }
