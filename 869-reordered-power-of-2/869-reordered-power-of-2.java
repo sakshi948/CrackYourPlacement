@@ -1,13 +1,32 @@
-class Solution {
-      public boolean reorderedPowerOf2(int N) {
-        long c = counter(N);
-        for (int i = 0; i < 32; i++)
-            if (counter(1 << i) == c) return true;
+class Solution{
+public boolean reorderedPowerOf2(int n) {
+        int Count[] = Count(n);
+        int power = 1;
+        for (int i = 0; i < 31; i++) {
+            int[] PowerCount = Count(power);
+            if (Equal(Count, PowerCount)) {
+                return true;
+            }
+            power *= 2;
+        }
         return false;
     }
-    public long counter(int N) {
-        long res = 0;
-        for (; N > 0; N /= 10) res += (int)Math.pow(10, N % 10);
-        return res;
+
+    private int[] Count(int n) { // Counting Occurence of each digit
+        int Count[] = new int[10];
+        while (n != 0) {
+            Count[n % 10]++;
+            n /= 10;
+        }
+        return Count;
+    }
+
+    private boolean Equal(int ar1[], int ar2[]) {
+        for (int i = 0; i < ar2.length; i++) {
+            if (ar1[i] != ar2[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
