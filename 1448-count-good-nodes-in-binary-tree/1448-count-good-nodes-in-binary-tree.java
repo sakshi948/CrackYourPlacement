@@ -14,21 +14,20 @@
  * }
  */
 class Solution {
-    public void fn(TreeNode node, int[] c, int max){
-        if(node == null ) return;
-        int m = Math.max(max, node.val); 
-        if(m<=node.val){
+    public void fn(TreeNode root,int c[],int maxi){
+        if(root==null) return;
+        maxi = Math.max(maxi,root.val);
+        if(maxi<=root.val){
             c[0]++;
-           // System.out.println(node.val);
-        } 
-        fn(node.right, c, m);
-        fn(node.left, c, m);
+        }
+        fn(root.left,c,maxi);
+        fn(root.right,c,maxi);
     }
     public int goodNodes(TreeNode root) {
+        int maxi = Integer.MIN_VALUE;
         int c[] = new int[1];
         c[0] = 0;
-        int m=Integer.MIN_VALUE;
-        fn(root,c,m);
+        fn(root,c,maxi);
         return c[0];
     }
 }
