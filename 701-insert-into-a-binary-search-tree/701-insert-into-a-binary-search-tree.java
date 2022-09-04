@@ -14,29 +14,27 @@
  * }
  */
 class Solution {
+    public TreeNode fn(TreeNode root,int val){
+        if(root.left==null&&root.right==null){
+            return root;
+        } 
+        if(root.left!=null&&root.val>val){
+            return fn(root.left,val);
+        }
+        if(root.right!=null&&root.val<val){
+            return fn(root.right,val);
+        }
+        return root;
+    }
     public TreeNode insertIntoBST(TreeNode root, int val) {
         if(root==null){return new TreeNode(val);}
-        TreeNode ans = root;
-        while(true){
-            if(root.val<val){
-                if(root.right!=null){
-                    root=root.right;
-                }
-                else{
-                    root.right = new TreeNode(val);
-                    break;
-                }
-            }
-            else if(root.val>val){
-                if(root.left!=null){
-                    root=root.left;
-                }
-                else{
-                    root.left =  new TreeNode(val);
-                    break;
-                }
-            }
+        TreeNode curr = fn(root,val);
+        if(curr.val<val){
+            curr.right = new TreeNode(val);
         }
-        return ans;
+        else{
+            curr.left = new TreeNode(val);
+        }
+        return root;
     }
 }
