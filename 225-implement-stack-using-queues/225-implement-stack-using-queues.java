@@ -9,19 +9,19 @@ class MyStack {
     public void push(int x) {
         q2.offer(x);
         while(!q1.isEmpty()){
-            q2.offer(q1.peek());
-            q1.remove();
+            q2.offer(q1.poll());
+           // q1.poll();
         }
         
         while(!q2.isEmpty()){
-            q1.offer(q2.peek());
-            q2.remove();
+            q1.offer(q2.poll());
+        //    q2.poll();
         }
     }
     
     public int pop() {
         if(q1.isEmpty()){return -1;}
-        return q1.remove();
+        return q1.poll();
     }
     
     public int top() {
