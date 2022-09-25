@@ -18,23 +18,24 @@ class Solution {
         Queue<TreeNode> qu = new LinkedList<>();
         ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
         qu.offer(root);
+        int answer=root.val;
         while(!qu.isEmpty()){
             int level = qu.size();
             ArrayList<Integer> al = new ArrayList<>();
             for(int i=0;i<level;i++){
                 TreeNode curr = qu.poll();
-                if(curr.left!=null){
-                    qu.offer(curr.left);
-                }
                 if(curr.right!=null){
                     qu.offer(curr.right);
+                    answer = curr.right.val;
+                }
+                if(curr.left!=null){
+                    qu.offer(curr.left);
+                    answer = curr.left.val;
                 }
                 al.add(curr.val);
             }
             ans.add(al);
         }
-        ArrayList<Integer> fin = new ArrayList<>();
-        fin = ans.get(ans.size()-1);
-        return fin.get(0);
+        return answer;
     }
 }
