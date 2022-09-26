@@ -16,10 +16,14 @@
 class Solution {
     public boolean fn(TreeNode left,TreeNode right){
         if(left==null||right==null){return left==right;}
-        if(left.val!=right.val){return false;}
-        return fn(left.left,right.right)&&fn(left.right,right.left);
+        if(left.val!=right.val){
+            return false;
+        }
+        boolean one = fn(left.left,right.right);
+        boolean two = fn(left.right,right.left);
+        return one&&two;
     }
     public boolean isSymmetric(TreeNode root) {
-        return root==null||fn(root.left,root.right);
+        return fn(root.left,root.right);
     }
 }
