@@ -14,14 +14,12 @@
  * }
  */
 class Solution {
-    public boolean fn(TreeNode root,int tar){
-        if(root==null){return false;}
-        if(root.left==null&&root.right==null&&tar-root.val==0){return true;}
-        boolean left = fn(root.left,tar-root.val);
-        boolean right = fn(root.right,tar-root.val);
-        return left||right;
-    }
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        return fn(root,targetSum);
+        if(root==null) return false;
+        
+        if(root.left == null && root.right == null && targetSum-root.val == 0) return true;
+        boolean left  = hasPathSum(root.left, targetSum-root.val);
+        boolean right = hasPathSum(root.right, targetSum-root.val);
+        return left || right;
     }
 }
