@@ -6,5 +6,5 @@ class Solution {
             if(!set.add(nums[i])) return true;
         }
         return false;
- }
+    }
 }
