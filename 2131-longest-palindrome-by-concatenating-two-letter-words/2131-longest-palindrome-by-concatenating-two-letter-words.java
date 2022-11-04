@@ -1,33 +1,46 @@
 class Solution {
     public int longestPalindrome(String[] words) {
-        HashMap<String, Integer> map = new HashMap<>();
-        for(String word: words){
-            if(map.containsKey(word)){
-                map.replace(word, map.get(word),map.get(word)+1);
-            }
-            else map.put(word,1);
+        HashMap<String,Integer> dis = new HashMap<>();
+        HashMap<String,Integer> same = new HashMap<>();
+        
+        for(int i=0;i<words.length;i++){
+            if(words[i].charAt(0)==words[i].charAt(1))
+                same.put(words[i],same.getOrDefault(words[i],0)+1);
+            else
+                dis.put(words[i],dis.getOrDefault(words[i],0)+1);
         }
-		
-        int len =0, mid=0;
-		
-        for(Map.Entry<String, Integer> e: map.entrySet()){
-            String s = e.getKey().charAt(1)+""+e.getKey().charAt(0);
-            if(s.equals(e.getKey())){
-                if(e.getValue()%2==0){
-                    len+= e.getValue()*2;
+        // System.out.println(same);
+        // System.out.println(dis);
+        int freq=0,maxi=0,count=0,flag=0;
+        for(var v:words){
+            if(dis.containsKey(v)){
+                String rev = v.charAt(1)+""+v.charAt(0);
+                if(dis.containsKey(rev)){
+                    freq+=(4*(Math.min(dis.get(v),dis.get(rev))));
+                    dis.remove(rev);
+                    dis.remove(v);
+                }
+            }
+            else{
+                if(same.getOrDefault(v,0)%2==0){
+                    count+=(2*same.getOrDefault(v,0));
+                    same.remove(v);
                 }
                 else{
-                    len+=(e.getValue()-1)*2;
-                    mid =1;
+                    if(flag==0){
+                        maxi+=same.getOrDefault(v,0);
+                        flag=1;
+                    }
+                    else{
+                        if(same.getOrDefault(v,0)>0){
+                        maxi+=same.getOrDefault(v,0)-1;
+                        }
+                    }
+                    same.remove(v);
                 }
             }
-            else if(map.containsKey(s)){
-                len += Math.min(map.get(s), e.getValue())*4;
-                map.replace(s,0);
-                map.replace(e.getKey(),0);
-            }
         }
-        len +=mid*2;
-        return len;
+     //   System.out.println(count+" "+maxi);
+        return freq+count+maxi*2;
     }
 }
